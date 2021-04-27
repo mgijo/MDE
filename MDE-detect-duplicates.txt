@@ -1,0 +1,13 @@
+//To search for duplicate devices in the MDE environment.
+//The query looks for devices that are active and successfully onboarded
+//In this scenario we will be assuming the environment has machine name terminology without "." notation
+
+DeviceInfo
+| where Timestamp >= ago(30d)
+| where OnboardingStatus == "Onboarded"
+| extend DeviceArray = split(DeviceName, ".")
+| extend Device = tostring(DeviceArray[0])
+| summarize NA=count() by DeviceId, Device
+| summarize DeviceCount=count()by Device
+| where DeviceCount != 1
+| sort by DeviceCount
