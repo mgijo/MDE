@@ -1,2 +1,2 @@
 # MDE
-Defender for Endpoint Advanced Hunting Queries
+Microsoft Defender for Endpoint Advanced Hunting Queries
