@@ -1,0 +1,6 @@
+DeviceInfo 
+| where Timestamp > ago(30d)
+| summarize arg_max(Timestamp, *) by DeviceId
+| where OnboardingStatus == 'Can be onboarded'
+| distinct Timestamp, DeviceName, DeviceType, DeviceId, OSPlatform, OSDistribution, OSVersion, ReportId
+| summarize DeviceCount=count() by DeviceType, OSPlatform
